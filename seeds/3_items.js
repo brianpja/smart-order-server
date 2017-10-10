@@ -18,5 +18,10 @@ exports.seed = function(knex, Promise) {
           name: 'Alphabet Vodka',
           price: 29}
       ]);
+    })
+    .then(() => {
+      return knex.raw(
+        "SELECT setval('items_id_seq', (SELECT MAX(id) FROM items));"
+      );
     });
 };

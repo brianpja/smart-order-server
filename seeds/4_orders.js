@@ -9,5 +9,10 @@ exports.seed = function(knex, Promise) {
           user_id: 1}
 
       ]);
+    })
+    .then(() => {
+      return knex.raw(
+        "SELECT setval('orders_id_seq', (SELECT MAX(id) FROM orders));"
+      );
     });
 };

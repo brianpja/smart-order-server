@@ -21,5 +21,10 @@ exports.seed = function(knex, Promise) {
           quantity: 1,
           price: 29}
       ]);
+    })
+    .then(() => {
+      return knex.raw(
+        "SELECT setval('orders_items_id_seq', (SELECT MAX(id) FROM orders_items));"
+      );
     });
 };

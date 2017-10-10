@@ -11,8 +11,13 @@ exports.seed = function(knex, Promise) {
           email: 'brianpja@gmail.com' },
         {id: 2,
           name: 'Alphabet Vodka',
-          contact: 'Marty', 
+          contact: 'Marty',
           email: 'brianpja@gmail.com'}
       ]);
+    })
+    .then(() => {
+      return knex.raw(
+        "SELECT setval('distributors_id_seq', (SELECT MAX(id) FROM distributors));"
+      );
     });
 };

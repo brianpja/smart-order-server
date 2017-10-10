@@ -11,5 +11,10 @@ exports.seed = function(knex, Promise) {
           email: 'brianpja@gmail.com',
           hashed_password: 'password'}
       ]);
+    })
+    .then(() => {
+      return knex.raw(
+        "SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));"
+      );
     });
 };

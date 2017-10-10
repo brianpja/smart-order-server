@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 const users = require('./routes/users.js');
-const items = require('./routes/items.js')
+const items = require('./routes/items.js');
+const orders = require('./routes/orders.js');
 
 app.use(bodyParser.json());
 
@@ -12,10 +14,11 @@ app.use(express.static(path.join('public')));
 
 app.use(users);
 app.use(items);
+app.use(orders);
 
 
 app.use((req, res) => {
-  res.send('brian you smart!')
+  res.send('brian you messing up!')
 })
 
 
