@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const users = require('./routes/users.js');
 const items = require('./routes/items.js');
 const orders = require('./routes/orders.js');
+const distributors = require('./routes/distributors.js')
 
 app.use(bodyParser.json());
 
@@ -15,6 +16,7 @@ app.use(express.static(path.join('public')));
 app.use(users);
 app.use(items);
 app.use(orders);
+app.use(distributors);
 
 
 app.use((req, res) => {
