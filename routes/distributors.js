@@ -5,7 +5,6 @@ const router = express.Router();
 const knex = require('../knex');
 
 
-
 router.get('/distributors', (req, res, next) => {
   knex('distributors')
     .then((distributors) =>{
@@ -16,10 +15,28 @@ router.get('/distributors', (req, res, next) => {
     })
 })
 
-router.post('/distributors', (req, res, next) => {
+router.get('/distributors/:id/items', (req, res, next) => {
+  console.log('working')
 
   knex('distributors')
-    .insert(req.body, '*')
+    .where('distributors.id', req.params.id)
+    .innerJoin('items', 'distributors.id', 'items.distributor_id')
+    .select('contact', 'email', 'distributors.name as distributor', 'items.name as item', 'price')
+    .then(function(data) {
+      console.log(data)
+      res.send(data);
+    })
+
+
+})
+
+router.post('/distributors', (req, res, next) => {
+
+  const postObj = req.body;
+  postObj.user_id = 1;
+
+  knex('distributors')
+    .insert(postObj, '*')
     .then(function(distributor) {
       res.send(distributor)
     })
