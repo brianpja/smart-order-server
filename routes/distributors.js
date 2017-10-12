@@ -21,7 +21,7 @@ router.get('/distributors/:id/items', (req, res, next) => {
   knex('distributors')
     .where('distributors.id', req.params.id)
     .innerJoin('items', 'distributors.id', 'items.distributor_id')
-    .select('distributors.id as dist_id', 'contact', 'email', 'distributors.name as distributor', 'items.name as item', 'price')
+    .select('distributors.id as dist_id', 'items.id as id', 'contact', 'email', 'distributors.name as distributor', 'items.name as item', 'price')
     .then(function(data) {
       console.log(data)
       res.send(data);
