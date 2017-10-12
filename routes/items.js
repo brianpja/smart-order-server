@@ -16,4 +16,17 @@ router.get('/items', (req, res, next) => {
     })
 })
 
+router.post('/items', (req, res, next) => {
+  console.log(req.body);
+  knex('items')
+    .insert(req.body, '*')
+    .then(function(newItem) {
+      res.send(newItem);
+    })
+
+    .catch((err) => {
+      next(err);
+    })
+})
+
 module.exports = router;
