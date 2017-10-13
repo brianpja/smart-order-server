@@ -8,6 +8,7 @@ const knex = require('../knex');
 
 router.get('/items', (req, res, next) => {
   knex('items')
+    .where('deleted_at', null)
     .then((items) =>{
       res.send(items)
     })
@@ -37,20 +38,26 @@ router.delete('/items/:id', (req, res, next) => {
 
   knex('items')
     .where('id', req.params.id)
-    .then(function(row) {
-      console.log(row)
-
-      deleted = row;
-
-      return knex('items')
-        .del()
-        .where('id', req.params.id)
+    .update({
+      deleted_at: new Date()
+    }, '*')
+    .then(function(item) {
+      res.send(item);
     })
-
-
-    .then(function() {
-      res.send(deleted)
-    })
+    // .then(function(row) {
+    //   console.log(row)
+    //
+    //   deleted = row;
+    //
+    //   return knex('items')
+    //     .del()
+    //     .where('id', req.params.id)
+    // })
+    //
+    //
+    // .then(function() {
+    //   res.send(deleted)
+    // })
 
     .catch((err) => {
       next(err);

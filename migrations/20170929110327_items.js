@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.integer('distributor_id').references('distributors.id').notNullable().onDelete('CASCADE');
     table.string('name').notNullable().unique();
     table.decimal('price').notNullable();
+    table.timestamp('deleted_at').defaultTo(null)
   })
 };
 

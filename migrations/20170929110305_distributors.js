@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.string('name').notNullable();
     table.string('contact');
     table.string('email').notNullable();
+    table.timestamp('deleted_at').defaultTo(null);
   })
 };
 
