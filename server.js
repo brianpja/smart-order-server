@@ -7,7 +7,8 @@ const morgan = require('morgan');
 const users = require('./routes/users.js');
 const items = require('./routes/items.js');
 const orders = require('./routes/orders.js');
-const distributors = require('./routes/distributors.js')
+const distributors = require('./routes/distributors.js');
+const token = require('./routes/token.js');
 
 app.use(bodyParser.json());
 
@@ -17,6 +18,7 @@ app.use(users);
 app.use(items);
 app.use(orders);
 app.use(distributors);
+app.use(token);
 
 
 app.use((req, res) => {

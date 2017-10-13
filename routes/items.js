@@ -32,9 +32,6 @@ router.post('/items', (req, res, next) => {
 
 router.delete('/items/:id', (req, res, next) => {
   console.log('deleting items')
-  // console.log('working')
-  // console.log(req.params)
-  let deleted;
 
   knex('items')
     .where('id', req.params.id)
@@ -44,20 +41,6 @@ router.delete('/items/:id', (req, res, next) => {
     .then(function(item) {
       res.send(item);
     })
-    // .then(function(row) {
-    //   console.log(row)
-    //
-    //   deleted = row;
-    //
-    //   return knex('items')
-    //     .del()
-    //     .where('id', req.params.id)
-    // })
-    //
-    //
-    // .then(function() {
-    //   res.send(deleted)
-    // })
 
     .catch((err) => {
       next(err);

@@ -67,8 +67,6 @@ router.patch('/distributors/:id', (req, res, next) => {
 })
 
 router.delete('/distributors/:id', (req, res, next) => {
-  console.log('working')
-  console.log(req.params)
 
   knex('distributors')
     .where('id', req.params.id)
