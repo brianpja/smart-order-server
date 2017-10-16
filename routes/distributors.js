@@ -6,7 +6,6 @@ const knex = require('../knex');
 
 
 router.get('/users/:id/distributors', (req, res, next) => {
-  console.log('req.body for get dist', req.body)
   knex('distributors')
     .where('user_id', req.params.id)
     .where('deleted_at', null)
@@ -19,15 +18,13 @@ router.get('/users/:id/distributors', (req, res, next) => {
 })
 
 router.get('/distributors/:id/items', (req, res, next) => {
-  console.log('working')
-
   knex('distributors')
     .where('distributors.id', req.params.id)
     .innerJoin('items', 'distributors.id', 'items.distributor_id')
     .where('items.deleted_at', null)
     .select('distributors.id as dist_id', 'items.id as id', 'contact', 'email', 'distributors.name as distributor', 'items.name as item', 'price')
+
     .then(function(data) {
-      console.log(data)
       res.send(data);
     })
 
@@ -35,7 +32,6 @@ router.get('/distributors/:id/items', (req, res, next) => {
 })
 
 router.post('/distributors', (req, res, next) => {
-  console.log('req.body:', req.body)
   const postObj = req.body;
 
   knex('distributors')
@@ -50,7 +46,6 @@ router.post('/distributors', (req, res, next) => {
 })
 
 router.patch('/distributors/:id', (req, res, next) => {
-
   knex('distributors')
     .where('id', req.params.id)
     .update({
@@ -68,7 +63,6 @@ router.patch('/distributors/:id', (req, res, next) => {
 })
 
 router.delete('/distributors/:id', (req, res, next) => {
-
   knex('distributors')
     .where('id', req.params.id)
     .update({

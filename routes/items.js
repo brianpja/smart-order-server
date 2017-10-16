@@ -19,7 +19,6 @@ router.get('/users/:id/items', (req, res, next) => {
 })
 
 router.post('/items', (req, res, next) => {
-  console.log(req.body);
   knex('items')
     .insert(req.body, '*')
     .then(function(newItem) {
@@ -32,8 +31,6 @@ router.post('/items', (req, res, next) => {
 })
 
 router.delete('/items/:id', (req, res, next) => {
-  console.log('deleting items')
-
   knex('items')
     .where('id', req.params.id)
     .update({

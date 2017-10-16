@@ -20,7 +20,6 @@ router.get('/users/:id', (req, res, next) =>{
   knex('users')
     .where('id', req.params.id)
     .then((user) => {
-      console.log('user:', user)
       user = user[0];
       delete user.hashed_password;
       res.send(user)
@@ -31,15 +30,12 @@ router.get('/users/:id', (req, res, next) =>{
 })
 
 router.post('/users', (req, res, next) => {
-  console.log(req.body)
   const userData = req.body;
 
-  console.log(userData)
   bcrypt.hash(userData.password, 12)
     .then(function(hashed_password) {
       delete userData.password;
       userData.hashed_password = hashed_password;
-      console.log('after hash:', userData)
 
       knex('users')
         .insert(userData, '*')
