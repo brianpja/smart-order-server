@@ -5,8 +5,10 @@ const router = express.Router();
 const knex = require('../knex');
 
 
-router.get('/distributors', (req, res, next) => {
+router.get('/users/:id/distributors', (req, res, next) => {
+  console.log('req.body for get dist', req.body)
   knex('distributors')
+    .where('user_id', req.params.id)
     .where('deleted_at', null)
     .then((distributors) =>{
       res.send(distributors)
@@ -33,9 +35,8 @@ router.get('/distributors/:id/items', (req, res, next) => {
 })
 
 router.post('/distributors', (req, res, next) => {
-
+  console.log('req.body:', req.body)
   const postObj = req.body;
-  postObj.user_id = 1;
 
   knex('distributors')
     .insert(postObj, '*')

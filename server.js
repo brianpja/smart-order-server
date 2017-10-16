@@ -3,6 +3,10 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const users = require('./routes/users.js');
 const items = require('./routes/items.js');
@@ -10,7 +14,9 @@ const orders = require('./routes/orders.js');
 const distributors = require('./routes/distributors.js');
 const token = require('./routes/token.js');
 
+
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use(express.static(path.join('public')));
 

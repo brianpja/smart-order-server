@@ -6,9 +6,9 @@ const knex = require('../knex');
 
 
 router.post('/orders', (req, res, next) => {
-
+  console.log('req.body for order post', req.body)
   knex('orders')
-    .insert({ user_id: 1 }, '*')
+    .insert({user_id: req.body[0].user_id}, '*')
     .then((order) => {
 
       const orderArray = req.body.map(function(item) {
@@ -32,8 +32,9 @@ router.post('/orders', (req, res, next) => {
     })
 })
 
-router.get('/orders', (req, res, next) =>{
+router.get('/users/:id/orders', (req, res, next) =>{
   knex('orders')
+  .where('orders.user_id', req.params.id)
   .innerJoin('orders_items', 'orders.id', 'orders_items.order_id')
   .innerJoin('items', 'items.id', 'orders_items.item_id')
   .select('created_at', 'updated_at', 'items.name as item_name', 'quantity', 'orders_items.price as price_paid', 'order_id', 'orders_items.id as id', 'items.id as item_id', 'distributor_id')

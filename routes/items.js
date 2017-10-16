@@ -6,8 +6,9 @@ const knex = require('../knex');
 
 
 
-router.get('/items', (req, res, next) => {
+router.get('/users/:id/items', (req, res, next) => {
   knex('items')
+    .where('user_id', req.params.id)
     .where('deleted_at', null)
     .then((items) =>{
       res.send(items)
