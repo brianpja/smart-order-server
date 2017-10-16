@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('name').notNullable().defaultTo('');
     table.string('company').notNullable();
-    table.string('email').notNullable().unique();
+    table.string('email').notNullable();
     table.string('hashed_password').notNullable();
   })
 };

@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.integer('user_id').references('users.id').notNullable().onDelete('CASCADE')
     table.integer('distributor_id').references('distributors.id').notNullable().onDelete('CASCADE');
-    table.string('name').notNullable().unique();
+    table.string('name').notNullable();
     table.decimal('price').notNullable();
     table.timestamp('deleted_at').defaultTo(null)
   })

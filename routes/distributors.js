@@ -33,7 +33,6 @@ router.get('/distributors/:id/items', (req, res, next) => {
 
 router.post('/distributors', (req, res, next) => {
   const postObj = req.body;
-
   knex('distributors')
     .insert(postObj, '*')
     .then(function(distributor) {
